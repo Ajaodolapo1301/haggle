@@ -3,13 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:haggle/constants/colorConstants.dart';
-import 'package:haggle/reusables/customTextField.dart';
-import 'package:haggle/reusables/custom_button.dart';
-import 'package:haggle/reusables/whiteBox.dart';
-import 'package:haggle/screen/verification.dart';
-import 'package:haggle/utils/sizeConfig/header.dart';
-import 'package:haggle/utils/sizeConfig/navigation/navigator.dart';
-import 'package:haggle/utils/sizeConfig/sizeConfig.dart';
 
 
 
