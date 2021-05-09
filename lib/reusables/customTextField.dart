@@ -92,7 +92,7 @@ class CustomTextField extends FormField<String> {
                   focusNode: focusNode,
                   style: TextStyle(
                     color: cursorColor,
-                    fontSize: 1.3 * SizeConfig.textMultiplier,
+                    fontSize: 1.5 * SizeConfig.textMultiplier,
 
 
                   ),
@@ -129,7 +129,7 @@ class CustomTextField extends FormField<String> {
                       )
                           : null,
                       labelStyle: TextStyle(
-                        fontSize: 12,
+                        fontSize: 13,
                         // 1.3 * SizeConfig.textMultiplier ,
                        color:  cursorColor,
                         fontWeight: FontWeight.w500,

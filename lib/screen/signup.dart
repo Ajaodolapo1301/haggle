@@ -1,6 +1,10 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:haggle/constants/colorConstants.dart';
+import 'package:haggle/constants/queries.dart';
 import 'package:haggle/reusables/customTextField.dart';
 import 'package:haggle/reusables/custom_button.dart';
 import 'package:haggle/reusables/whiteBox.dart';
@@ -21,6 +25,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Countries countries;
+  Queries queries = Queries();
+  List<Countries> c = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +35,7 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: SafeArea(
+          bottom: false,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,53 +78,94 @@ class _RegisterState extends State<Register> {
 
 
                             cursorColor: Colors.black,
-//                          labelStyle: TextStyle(
-//                            fontSize: 14,
-//                            color:   Colors.black.withOpacity(0.5),
-//                            fontWeight: FontWeight.w500,
-//                          ),
-//                 focusNode: phoneNode,
+
                             textActionType: ActionType.next,
                             label: "Password (Min. 8 characters)",
                             onSubmit: (v){
-                              // _fieldFocusChange(context, phoneNode, passwordNode);
+
                             },
                             validator: (v) {
                               if (v.isEmpty) {
                                 return "Field is required";
                               }
-                              // phoneNumber = v;
+
                               return null;
                             },
-                            // prefixIcon: Icons.phone
+
                           ),
                           SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
                           CustomTextField(
                             cursorColor: Colors.black,
-
-//                 focusNode: phoneNode,
                             textActionType: ActionType.next,
                             label: "Create a username",
                             onSubmit: (v){
-                              // _fieldFocusChange(context, phoneNode, passwordNode);
+
                             },
                             validator: (v) {
                               if (v.isEmpty) {
                                 return "Field is required";
                               }
-                              // phoneNumber = v;
+
                               return null;
                             },
-                            // prefixIcon: Icons.phone
+
                           ),
 
-                          SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
+                          c.isEmpty ?     SizedBox() :     SizedBox(height: 3.6* SizeConfig.heightMultiplier,) ,
+
+                          c.isEmpty ?        Query(
+                              options: QueryOptions(
+                                  documentNode: gql(queries.fetchCountries()),
+                                  fetchPolicy: FetchPolicy.noCache
+                              ),     builder: (
+                              QueryResult result, {
+                                Refetch refetch,
+                                FetchMore fetchMore,
+
+                              }) {
+                            if (result.data == null) {
+                              return Center(
+                                child: Text(
+                                  "Loading...",
+                                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                ),
+                              );
+                            } else{
+
+
+
+                              (result.data)["getActiveCountries"].forEach((dat){
+
+                                c.add(Countries.fromJson(dat));
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) => setState(() {
+                                countries = c[6];
+                                }));
+
+                              });
+
+                              print(countries?.flag);
+
+                              return Container();
+
+                            }
+                          }
+                          ) : SizedBox(),
+
+
                           Row(
-                            // crossAxisAlignment: CrossAxisAlignment.baseline,
                             children: [
                               InkWell(
                                 onTap: () {
-                                  pushTo(context, SelectCountry());
+                                  pushTo(context, SelectCountry(filterList: c,)).then((value) {
+                                    print("value$value");
+                                  setState(() {
+
+
+                                    countries = value;
+
+                                  });
+                                  });
 
                   },
                                 child: Container(
@@ -131,7 +180,13 @@ class _RegisterState extends State<Register> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("(+234)", style: TextStyle(fontSize: 9),)
+                                      c.isEmpty ? CupertinoActivityIndicator() :  Row(
+                                        children: [
+                                     SvgPicture.network(countries?.flag, width: 20,),
+                                          SizedBox(width: 10,),
+                                          Text(countries?.name ?? "", style: TextStyle(fontSize: 9),),
+                                        ],
+                                      )
 
                                     ],
                                   ),

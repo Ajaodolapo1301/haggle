@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:haggle/screen/homepage.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:haggle/screen/login.dart';
 import 'package:haggle/utils/sizeConfig/sizeConfig.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    final HttpLink httpLink = HttpLink(
+      uri: 'https://hagglex-backend-staging.herokuapp.com/graphql',
+      // headers: {
+      //   'X-Parse-Application-Id': kParseApplicationId,
+      //   'X-Parse-Client-Key': kParseClientKey,
+      //   'X-Parse-Master-Key': kParseMasterKey,
+      //   //'X-Parse-REST-API-Key' : kParseRestApiKey,
+      // }, //getheaders()
+    );
+
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
+      GraphQLClient(
+        cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
+        link: httpLink,
+      ),
+    );
+
     return LayoutBuilder(
         builder: (context, constraints){
           return OrientationBuilder(
@@ -43,15 +62,20 @@ class MyApp extends StatelessWidget {
                   }
 
                 },
-                child: MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Haggle',
-                    theme: ThemeData(
-                        primarySwatch: Colors.deepPurple,
-                        fontFamily: 'BasisGrotesquePro'
-                      // primarySwatch: Colors.blue,
+                child: GraphQLProvider(
+                  client: client,
+                  child: CacheProvider(
+                    child: MaterialApp(
+                        debugShowCheckedModeBanner: false,
+                        title: 'Haggle',
+                        theme: ThemeData(
+                            primarySwatch: Colors.deepPurple,
+                            fontFamily: 'BasisGrotesquePro'
+                          // primarySwatch: Colors.blue,
+                        ),
+                        home: Login()
                     ),
-                    home: Login()
+                  ),
                 ),
               );
             },

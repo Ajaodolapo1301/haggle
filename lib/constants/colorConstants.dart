@@ -7,3 +7,9 @@ Color kPrimaryColor = Color(0xff2E1963);
 
 
 Color gold = Color(0xffFFC175);
+
+
+
+String kParseApplicationId= "APPLICATION_ID_COPIED_FROM_HEADERS";
+String kParseClientKey = "CLIENT_KEY_COPIED_FROM_HEADER";
+String kUrl= "https://hagglex-backend-staging.herokuapp.com/graphql";
