@@ -5,6 +5,7 @@ import 'package:haggle/constants/colorConstants.dart';
 import 'package:haggle/reusables/customTextField.dart';
 import 'package:haggle/reusables/custom_button.dart';
 import 'package:haggle/reusables/whiteBox.dart';
+import 'package:haggle/screen/login.dart';
 import 'package:haggle/screen/verification.dart';
 import 'package:haggle/utils/sizeConfig/header.dart';
 import 'package:haggle/utils/sizeConfig/navigation/navigator.dart';
@@ -49,15 +50,10 @@ class _SetUpCompleteState extends State<SetUpComplete> {
                 textColor: Colors.black,
                 text: "start exploring".toUpperCase(),
                 onPressed: () {
-                  // if (formKey.currentState.validate()) {
-                  //   handleLogin();
-                  // pushTo(context, Register());
-                  //
-                  //
-                  // }
+                pushToAndClearStack(context, Login());
                 },
               ),
-              // Spacer(),
+
             ],
           ),
         ),

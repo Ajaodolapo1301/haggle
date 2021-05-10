@@ -31,7 +31,7 @@ class _HomepageState extends State<Homepage> {
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          Center(child: Text("Welcome to dashboard ${user.phonenumber}" )),
+          Center(child: Text("Welcome to dashboard ${user.username} of ${user.country}" )),
           FlatButton(
             color: kPrimaryColor,
               onPressed: (){

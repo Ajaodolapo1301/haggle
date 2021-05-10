@@ -79,6 +79,25 @@ class CustomTextField extends FormField<String> {
                 onChanged(value);
               }
             }
+            TextInputType getTextInputType() {
+              switch (type) {
+                case FieldType.email:
+                  return TextInputType.emailAddress;
+                  break;
+                case FieldType.phone:
+                  return TextInputType.phone;
+                  break;
+
+                case FieldType.multiline:
+                  return TextInputType.multiline;
+                  break;
+                case FieldType.number:
+                  return TextInputType.number;
+                default:
+                  return TextInputType.text;
+                  break;
+              }
+            }
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,13 +105,14 @@ class CustomTextField extends FormField<String> {
                 TextField(
                 cursorColor: cursorColor,
                   onTap: onTap,
+                  keyboardType: getTextInputType(),
                   readOnly: readOnly,
                     onSubmitted: onSubmit,
                   onChanged: onChangedHandler,
                   focusNode: focusNode,
                   style: TextStyle(
                     color: cursorColor,
-                    fontSize: 1.5 * SizeConfig.textMultiplier,
+                    fontSize: 1.7 * SizeConfig.textMultiplier,
 
 
                   ),

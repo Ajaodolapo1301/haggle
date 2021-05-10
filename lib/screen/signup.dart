@@ -84,12 +84,11 @@ var refcode;
                             CustomTextField(
                               cursorColor: Colors.black,
 
-//                 focusNode: phoneNode,
                               textActionType: ActionType.next,
                               label: "Email Address",
                               type: FieldType.email,
                               onSubmit: (v){
-                                // _fieldFocusChange(context, phoneNode, passwordNode);
+
                               },
                               validator: (v) {
                                 if (v.isEmpty) {
@@ -114,7 +113,7 @@ var refcode;
                                   style: TextStyle(fontSize: 10, color: kPrimaryColor),
                                 ),
                               ),
-
+                              type: FieldType.text,
                               cursorColor: Colors.black,
 
                               textActionType: ActionType.next,
@@ -133,6 +132,8 @@ var refcode;
                             ),
                             SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
                             CustomTextField(
+
+                              type: FieldType.text,
                               cursorColor: Colors.black,
                               textActionType: ActionType.next,
                               label: "Create a username",
@@ -236,11 +237,11 @@ var refcode;
                                   child: CustomTextField(
                                     cursorColor: Colors.black,
 
-//                 focusNode: phoneNode,
+                                    type: FieldType.phone,
                                     textActionType: ActionType.next,
                                     label: "Enter your phone number",
                                     onSubmit: (v){
-                                      // _fieldFocusChange(context, phoneNode, passwordNode);
+
                                     },
                                     validator: (v) {
                                       if (v.isEmpty) {
@@ -258,7 +259,7 @@ var refcode;
                             CustomTextField(
                               cursorColor: Colors.black,
 
-//               ,
+                              type: FieldType.text,
                               textActionType: ActionType.next,
                               label: "Referral code (optional)",
                               onChanged: (v){
@@ -275,30 +276,7 @@ var refcode;
                               text: "SIGN UP".toUpperCase(),
                               onPressed: () async{
                                 if (formKey.currentState.validate()) {
-                                  showLoadingDialog(context);
-                                  GraphQLClient _client = graphQLConfiguration.clientToQuery();
-                                    QueryResult result = await  _client.mutate(
-                                      MutationOptions(
-                                        fetchPolicy: FetchPolicy.networkOnly,
-                                        documentNode:  gql( queries.register(email, username, password, refcode, countries.name.toString(), phonenumber.toString(), countries.currencyName.toString(),  countries.callingCode.toString(), countries.flag.toString()))
-                                      )
-                                    );
-                                      if(result.loading){
-
-
-                                      }else if(result.hasException){
-                                        pd.hide();
-
-                             CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, Colors.red);
-                                  }else{
-                                  pd.hide();
-                                  user = User.fromJson(result.data);
-
-                                  box = Hive.box("user");
-                                  box.put('user', user);
-
-                               pushTo(context, Verification());
-                                  }
+                                  register();
 
                                       }
 
@@ -319,6 +297,33 @@ var refcode;
         ),
       ) ,
     );
+  }
+
+  register()async{
+    showLoadingDialog(context);
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await  _client.mutate(
+        MutationOptions(
+            fetchPolicy: FetchPolicy.networkOnly,
+            documentNode:  gql( queries.register(email, username, password, refcode, countries.name.toString(), phonenumber.toString(), countries.currencyName.toString(),  countries.callingCode.toString(), countries.flag.toString()))
+        )
+    );
+    if(result.loading){
+
+
+    }else if(result.hasException){
+      pd.hide();
+
+      CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, Colors.red);
+    }else{
+      pd.hide();
+      user = User.fromJson(result.data);
+
+      box = Hive.box("user");
+      box.put('user', user);
+
+      pushTo(context, Verification());
+    }
   }
 }
 

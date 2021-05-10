@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
                   Text("Welcome!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 40) ,),
                   SizedBox(height: 7.3 * SizeConfig.heightMultiplier,),
                   CustomTextField(
-
+                  type: FieldType.email,
                       textActionType: ActionType.next,
                       label: "Email Address",
                       onSubmit: (v){
@@ -81,6 +81,7 @@ class _LoginState extends State<Login> {
                     ),
                   SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
                   CustomTextField(
+                    type: FieldType.text,
                     obscureText: !isVisiblePassword ,
                     suffix: GestureDetector(
                       onTap: () {
@@ -105,7 +106,7 @@ class _LoginState extends State<Login> {
                       password = v;
                       return null;
                     },
-                    // prefixIcon: Icons.phone
+
                   ),
                   SizedBox(height: 3.0* SizeConfig.heightMultiplier,),
     Row(
@@ -122,35 +123,7 @@ class _LoginState extends State<Login> {
                     text: "Log In".toUpperCase(),
                     onPressed: () async{
                       if (formKey.currentState.validate()) {
-                        showLoadingDialog(context);
-                        GraphQLClient _client = graphQLConfiguration.clientToQuery();
-                        QueryResult result = await  _client.mutate(
-
-                            MutationOptions(
-
-                                fetchPolicy: FetchPolicy.networkOnly,
-
-                                documentNode:  gql( queries.login(email,  password, ))
-                            )
-                        );
-                        if(result.loading){
-
-
-                        }else if(result.hasException){
-                          pd.hide();
-
-                          CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, kPrimaryColor);
-                        }else{
-                          pd.hide();
-                      user = User.fromJson2(result.data);
-                          Box box;
-                          box = Hive.box("user");
-                          box.put('user', user);
-
-                          user.emailVerified  ?    pushToAndClearStack(context, Homepage()) : pushTo(context, Verification()) ;
-
-
-                        }
+                      login();
 
                       }
                     },
@@ -168,5 +141,38 @@ class _LoginState extends State<Login> {
         ),
       ) ,
     );
+  }
+
+
+  login()async{
+    showLoadingDialog(context);
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await  _client.mutate(
+
+        MutationOptions(
+
+            fetchPolicy: FetchPolicy.networkOnly,
+
+            documentNode:  gql( queries.login(email,  password, ))
+        )
+    );
+    if(result.loading){
+
+
+    }else if(result.hasException){
+      pd.hide();
+
+      CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, Colors.red);
+    }else{
+      pd.hide();
+      user = User.fromJson2(result.data);
+      Box box;
+      box = Hive.box("user");
+      box.put('user', user);
+
+      user.emailVerified  ?    pushToAndClearStack(context, Homepage()) : pushTo(context, Verification()) ;
+
+
+    }
   }
 }

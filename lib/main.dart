@@ -26,7 +26,7 @@ Future <void> main() async{
   User user = box.get('user', defaultValue: null);
   runApp(
       DevicePreview(
-          enabled: true,
+          enabled: false,
           builder: (context) =>
               MultiProvider(
                   providers: [
