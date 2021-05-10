@@ -1,13 +1,29 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:haggle/GraphQlConfig.dart';
 import 'package:haggle/screen/login.dart';
 import 'package:haggle/utils/sizeConfig/sizeConfig.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/appState.dart';
+import 'model/user.dart';
 
-void main() {
+import 'package:path_provider/path_provider.dart' as path_provider;
+GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
+
+  Hive.init(appDocumentDirectory.path);
+
+  Hive.registerAdapter(UserAdapter());
+
+  await Hive.openBox("user");
+  final box = Hive.box("user");
+  User user = box.get('user', defaultValue: null);
   runApp(
       DevicePreview(
           enabled: true,
@@ -19,33 +35,17 @@ void main() {
 
                   ],
                   child: MyApp(
-                    // hasUserUsedApp: hasUserUsedApp,
+
                   )))
 
   );
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final User user;
+  MyApp({this.user});
   @override
   Widget build(BuildContext context) {
-
-    final HttpLink httpLink = HttpLink(
-      uri: 'https://hagglex-backend-staging.herokuapp.com/graphql',
-      // headers: {
-      //   'X-Parse-Application-Id': kParseApplicationId,
-      //   'X-Parse-Client-Key': kParseClientKey,
-      //   'X-Parse-Master-Key': kParseMasterKey,
-      //   //'X-Parse-REST-API-Key' : kParseRestApiKey,
-      // }, //getheaders()
-    );
-
-    ValueNotifier<GraphQLClient> client = ValueNotifier(
-      GraphQLClient(
-        cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
-        link: httpLink,
-      ),
-    );
 
     return LayoutBuilder(
         builder: (context, constraints){
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
 
                 },
                 child: GraphQLProvider(
-                  client: client,
+                  client: graphQLConfiguration.client,
                   child: CacheProvider(
                     child: MaterialApp(
                         debugShowCheckedModeBanner: false,

@@ -24,17 +24,17 @@ class SelectCountry extends StatefulWidget {
 }
 
 class _SelectCountryState extends State<SelectCountry> {
-  Queries queries = Queries();
-  List<Countries> c = [];
-  String query = '''
-    query{
-      getActiveCountries{
-        name
-        flag
-        callingCode
-  }
-    }
-  ''';
+  // Queries queries = Queries();
+  // List<Countries> c = [];
+  // String query = '''
+  //   query{
+  //     getActiveCountries{
+  //       name
+  //       flag
+  //       callingCode
+  // }
+  //   }
+  // ''';
 
 
    List<Countries> filteredList =  [];
@@ -52,7 +52,7 @@ class _SelectCountryState extends State<SelectCountry> {
     if (filteredList.isEmpty) {
       // when widget is built and bank list isn't loaded immediately
       setState(() {
-        filteredList =c;
+        filteredList = widget.filterList;
       });
     }
     return Scaffold(
@@ -93,7 +93,7 @@ class _SelectCountryState extends State<SelectCountry> {
                                 //           .contains(v))
                                 //       .toList();
                                 // } else {
-                                filteredList = c
+                                filteredList = widget.filterList
                                     .where((country) => country.name
                                     .toString()
                                     .toLowerCase()
@@ -103,7 +103,7 @@ class _SelectCountryState extends State<SelectCountry> {
                               });
                             } else {
                               setState(() {
-                                filteredList = c;
+                                filteredList = widget.filterList;
                               });
                             }
                           },
@@ -131,7 +131,7 @@ SizedBox(height: 20,),
 
                 Divider(color: Colors.grey,),
               Column(
-                children: widget.filterList.map((e){
+                children: filteredList.map((e){
                   return GestureDetector(
                       onTap: (){
                         pop(context, e);
@@ -139,66 +139,6 @@ SizedBox(height: 20,),
                       child: Tile(e));
                 }).toList(),
               )
-                // Query(
-                //     options: QueryOptions(
-                //   documentNode: gql(query),
-                //       fetchPolicy: FetchPolicy.noCache
-                // ),     builder: (
-                //     QueryResult result, {
-                //       // c.clear();
-                //       Refetch refetch,
-                //       FetchMore fetchMore,
-                //
-                //     }) {
-                //   if (result.data == null) {
-                //       // Countries countries = result.data["getActiveCountries"];
-                //     return Center(
-                //       child: Text(
-                //         "Loading...",
-                //         style: TextStyle(fontSize: 20.0, color: Colors.white),
-                //       ),
-                //     );
-                //   } else{
-                //   print(filteredList);
-                //   c.clear();
-                //     (result.data)["getActiveCountries"].forEach((dat){
-                //
-                //       c.add(Countries.fromJson(dat));
-                //
-                //     });
-                //
-                //     // return Container(
-                //     //
-                //     //   height: 200,
-                //     //   child: ListView.builder(
-                //     //     itemBuilder: (context, index){
-                //     //       return Text(c[index].name);
-                //     //     },
-                //     //   ),
-                //     // );
-                //       return
-                //     //
-                //     //   Container(
-                //     //       height: 400,
-                //     //     child:  ListView.builder(
-                //     //       itemCount: filteredList.length,
-                //     //       itemBuilder: (context, i){
-                //     //         return Tile(filteredList[i]);
-                //     //       },
-                //     //     ),
-                //     //   );
-                //         Column(
-                //         children: widget.filterList.map((e){
-                //           return GestureDetector(
-                //             onTap: (){
-                //               pop(context, e);
-                //             },
-                //               child: Tile(e));
-                //         }).toList(),
-                //       );
-                //   }
-                // }
-                // ),
 
 
               ],
@@ -233,10 +173,12 @@ class Countries{
   String name;
   String flag;
   String callingCode;
-  Countries({this.name, this.flag, this.callingCode});
+  String currencyName;
+  Countries({this.name, this.flag, this.callingCode, this.currencyName});
   factory Countries.fromJson (Map<String, dynamic> json)=>Countries(
     flag: json["flag"],
     name: json["name"],
-    callingCode: json["callingCode"]
+    callingCode: json["callingCode"],
+    currencyName: json["currencyDetails"]["name"]
   );
 }
