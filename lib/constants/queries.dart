@@ -33,6 +33,10 @@ mutation {
       _id
       phonenumber
       emailVerified
+        username
+      profile {
+        country
+      }
     }
     token
   }
@@ -53,6 +57,10 @@ mutation {
       _id
       phonenumber
       emailVerified
+       username
+      profile {
+        country
+      }
     }
     token
   }

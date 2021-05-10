@@ -41,8 +41,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.3.2
   hive_generator: ^0.5.2
   build_runner: ^1.7.2
+
+flutter_native_splash:
+  color: "#2E1963"
+  image: "assets/images/icon.png"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

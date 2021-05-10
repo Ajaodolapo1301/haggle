@@ -102,7 +102,7 @@ var refcode;
                             ),
                             SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
                             CustomTextField(
-                              obscureText: isVisiblePassword ,
+                              obscureText: !isVisiblePassword ,
                               suffix: GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -220,9 +220,9 @@ var refcode;
                                       children: [
                                         c.isEmpty ? CupertinoActivityIndicator() :  Row(
                                           children: [
-                                       SvgPicture.network(countries?.flag, width: 20,),
+                                       SvgPicture.network(countries?.flag, width: 25,),
                                             SizedBox(width: 10,),
-                                            Text("+${countries?.callingCode}" ?? "", style: TextStyle(fontSize: 9),),
+                                            Text("+${countries?.callingCode}" ?? "", style: TextStyle(fontSize: 12),),
                                           ],
                                         )
 

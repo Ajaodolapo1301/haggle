@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,13 +7,8 @@ import 'package:haggle/constants/colorConstants.dart';
 import 'package:haggle/constants/queries.dart';
 import 'package:haggle/utils/sizeConfig/navigation/navigator.dart';
 
-
-
-
-
-
 class SelectCountry extends StatefulWidget {
-   List<Countries> filterList = [];
+  List<Countries> filterList = [];
 
   SelectCountry({this.filterList});
   @override
@@ -24,33 +16,15 @@ class SelectCountry extends StatefulWidget {
 }
 
 class _SelectCountryState extends State<SelectCountry> {
-  // Queries queries = Queries();
-  // List<Countries> c = [];
-  // String query = '''
-  //   query{
-  //     getActiveCountries{
-  //       name
-  //       flag
-  //       callingCode
-  // }
-  //   }
-  // ''';
 
 
-   List<Countries> filteredList =  [];
-  // onItemChanged(String value) {
-  //   setState(() {
-  //     filteredList = c
-  //         .where((string) => string.name.toLowerCase().contains(value.toLowerCase()))
-  //         .toList();
-  //   });
-  // }
+  List<Countries> filteredList = [];
+
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
     if (filteredList.isEmpty) {
-      // when widget is built and bank list isn't loaded immediately
+
       setState(() {
         filteredList = widget.filterList;
       });
@@ -63,43 +37,31 @@ class _SelectCountryState extends State<SelectCountry> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
-                SizedBox(height: 20,),
-
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
-                   height: 45,
-              padding: EdgeInsets.symmetric(horizontal: 21),
+                  height: 45,
+                  padding: EdgeInsets.symmetric(horizontal: 21),
                   decoration: BoxDecoration(
-
-                      // border: Border.all(color: borderBlue ),
-                    color: Color(0xff584783),
+                      color: kPrimaryLight,
                       borderRadius: BorderRadius.circular(40)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      // SizedBox(width: 10),
+
                       Expanded(
                         child: TextField(
                           onChanged: (v) {
                             if (v.isNotEmpty) {
                               setState(() {
-                                // if (widget.isMap) {
-                                //   tempList = widget.bankList
-                                //       .where((bank) =>
-                                //       bank[widget.textField]
-                                //           .toString()
-                                //           .toLowerCase()
-                                //           .contains(v))
-                                //       .toList();
-                                // } else {
                                 filteredList = widget.filterList
                                     .where((country) => country.name
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(v))
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(v))
                                     .toList();
-                                // }
                               });
                             } else {
                               setState(() {
@@ -111,14 +73,11 @@ class _SelectCountryState extends State<SelectCountry> {
                           controller: searchController,
                           decoration: InputDecoration.collapsed(
                               hintText: "Search for country",
-                              hintStyle: TextStyle(
-                                fontSize: 10,
-                                  color: Colors.grey)
-                          ),
+                              hintStyle:
+                                  TextStyle(fontSize: 10, color: Colors.grey)),
                           style: TextStyle(
-                              color: Colors.white,
+                            color: Colors.white,
                           ),
-
                         ),
                       ),
 
@@ -127,58 +86,68 @@ class _SelectCountryState extends State<SelectCountry> {
                     ],
                   ),
                 ),
-SizedBox(height: 20,),
-
-                Divider(color: Colors.grey,),
-              Column(
-                children: filteredList.map((e){
-                  return GestureDetector(
-                      onTap: (){
-                        pop(context, e);
-                      },
-                      child: Tile(e));
-                }).toList(),
-              )
-
-
+                SizedBox(
+                  height: 20,
+                ),
+                Divider(
+                  color: Colors.grey,
+                ),
+                Column(
+                  children: filteredList.map((e) {
+                    return GestureDetector(
+                        onTap: () {
+                          pop(context, e);
+                        },
+                        child: Tile(e));
+                  }).toList(),
+                )
               ],
             ),
           ),
         ),
-      ) ,
+      ),
     );
   }
 
- Widget Tile (Countries countries) {
-   return  Padding(
-     padding: const EdgeInsets.all(15.0),
-     child: Row(
-       children: [
-         SvgPicture.network(countries.flag, width: 20, placeholderBuilder: (context, ){
-           return CupertinoActivityIndicator();
-
-         }, ),
-         SizedBox(width: 10,),
-         Text("${countries.callingCode} ${countries.name}",  style: TextStyle(fontSize: 15.0, color: Colors.white, ), ),
-       ],
-     ),
-   );
- }
-
-
+  Widget Tile(Countries countries) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        children: [
+          SvgPicture.network(
+            countries.flag,
+            width: 20,
+            placeholderBuilder: (
+              context,
+            ) {
+              return CupertinoActivityIndicator();
+            },
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            "${countries.callingCode} ${countries.name}",
+            style: TextStyle(
+              fontSize: 15.0,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-
-class Countries{
+class Countries {
   String name;
   String flag;
   String callingCode;
   String currencyName;
   Countries({this.name, this.flag, this.callingCode, this.currencyName});
-  factory Countries.fromJson (Map<String, dynamic> json)=>Countries(
-    flag: json["flag"],
-    name: json["name"],
-    callingCode: json["callingCode"],
-    currencyName: json["currencyDetails"]["name"]
-  );
+  factory Countries.fromJson(Map<String, dynamic> json) => Countries(
+      flag: json["flag"],
+      name: json["name"],
+      callingCode: json["callingCode"],
+      currencyName: json["currencyDetails"]["name"]);
 }

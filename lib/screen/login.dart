@@ -34,9 +34,7 @@ class _LoginState extends State<Login> {
   var email;
 
   var password;
-
-
-
+  bool isVisiblePassword = false;
   User user;
   ProgressDialog pd;
   void showLoadingDialog(context) async {
@@ -63,14 +61,14 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 9.8 * SizeConfig.heightMultiplier,),
-                  Text("Welcome!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 40) ,),
+                  Text("Welcome!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 40) ,),
                   SizedBox(height: 7.3 * SizeConfig.heightMultiplier,),
                   CustomTextField(
-//                 focusNode: phoneNode,
+
                       textActionType: ActionType.next,
                       label: "Email Address",
                       onSubmit: (v){
-                        // _fieldFocusChange(context, phoneNode, passwordNode);
+
                       },
                       validator: (v) {
                         if (v.isEmpty) {
@@ -79,11 +77,22 @@ class _LoginState extends State<Login> {
                         email = v;
                         return null;
                       },
-                      // prefixIcon: Icons.phone
+
                     ),
                   SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
                   CustomTextField(
-                    suffix: Text("show"),
+                    obscureText: !isVisiblePassword ,
+                    suffix: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isVisiblePassword = !isVisiblePassword;
+                        });
+                      },
+                      child: Text(
+                        isVisiblePassword ? "HIDE" : "SHOW",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
+                    ),
                     textActionType: ActionType.next,
                     label: "Password (Min. 8 characters)",
                     onSubmit: (v){
@@ -98,7 +107,7 @@ class _LoginState extends State<Login> {
                     },
                     // prefixIcon: Icons.phone
                   ),
-                  SizedBox(height: 3.9* SizeConfig.heightMultiplier,),
+                  SizedBox(height: 3.0* SizeConfig.heightMultiplier,),
     Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -133,7 +142,7 @@ class _LoginState extends State<Login> {
                           CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, kPrimaryColor);
                         }else{
                           pd.hide();
-                 user = User.fromJson2(result.data);
+                      user = User.fromJson2(result.data);
                           Box box;
                           box = Hive.box("user");
                           box.put('user', user);

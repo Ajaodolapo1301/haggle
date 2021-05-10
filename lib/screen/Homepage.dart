@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haggle/constants/colorConstants.dart';
+import 'package:haggle/model/user.dart';
 import 'package:haggle/utils/sizeConfig/navigation/navigator.dart';
 import 'package:hive/hive.dart';
 
@@ -15,9 +16,12 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   Box box;
+  User user;
   @override
   void initState() {
     box = Hive.box("user");
+
+    user = box.get('user', defaultValue: null);
     super.initState();
   }
   @override
@@ -27,7 +31,7 @@ class _HomepageState extends State<Homepage> {
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          Center(child: Text("Welcome to dashboard")),
+          Center(child: Text("Welcome to dashboard ${user.phonenumber}" )),
           FlatButton(
             color: kPrimaryColor,
               onPressed: (){

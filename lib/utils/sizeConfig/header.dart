@@ -19,18 +19,12 @@ class Header extends StatelessWidget {
     return Row(
       children: [
         Container(
-        height: 36,
+          height: 36,
           // width: 45,
           decoration: BoxDecoration(
+              color: kPrimaryLight, borderRadius: BorderRadius.circular(60)),
 
-            color: Color(0xff6A4BBC),
-              // color: Color(0xff6A4BBC).withOpacity(0.4),
-            borderRadius: BorderRadius.circular(60)
-          ),
-
-          // padding: EdgeInsets.all(10),
           child: IconButton(
-
             icon: Icon(
               Icons.arrow_back_ios_rounded,
               size: 18,

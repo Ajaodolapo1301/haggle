@@ -17,10 +17,14 @@ class User extends HiveObject{
   String token;
   @HiveField(4)
   bool emailVerified;
+  @HiveField(5)
+  String username;
+  @HiveField(6)
+  String country;
 
 
 
-  User({this.phonenumber, this.email, this.id, this.token, this.emailVerified});
+  User({this.phonenumber, this.email, this.id, this.token, this.emailVerified, this.username, this.country});
 
 
   User.fromJson(Map<String, dynamic>json) {
@@ -29,6 +33,8 @@ class User extends HiveObject{
     phonenumber = json["register"]["user"]["phonenumber"];
     token = json["register"]["token"];
     emailVerified = json["register"]["user"]["emailVerified"];
+    country = json["register"]["user"]["profile"]["country"];
+    username = json["register"]["user"]["username"];
   }
 
   User.fromJson2(Map<String, dynamic>json) {
@@ -37,6 +43,8 @@ class User extends HiveObject{
      phonenumber = json["login"]["user"]["phonenumber"];
      token = json["login"]["token"];
      emailVerified = json["login"]["user"]["emailVerified"];
+     country = json["login"]["user"]["profile"]["country"];
+     username = json["login"]["user"]["username"];
    }
 
 

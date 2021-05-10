@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -24,17 +23,13 @@ import 'package:progress_dialog/progress_dialog.dart';
 import '../GraphQlConfig.dart';
 import 'Homepage.dart';
 
-
-
-
-
-
 class Verification extends StatefulWidget {
   @override
   _VerificationState createState() => _VerificationState();
 }
 
-class _VerificationState extends State<Verification> with TickerProviderStateMixin {
+class _VerificationState extends State<Verification>
+    with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final formKey = GlobalKey<FormState>();
   Queries queries = Queries();
@@ -50,35 +45,35 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
     pd = await CommonUtils.showProgressDialog(
         context, "Processing...Please wait!");
   }
+
   var otp;
   Box box = Hive.box("user");
 
   bool isLoading = false;
-    @override
+  @override
   void initState() {
-      totalTimeInSeconds = time;
-      _controller =
-      AnimationController(vsync: this, duration: Duration(seconds: time))
-        ..addStatusListener((status) {
-          if (status == AnimationStatus.dismissed) {
-            setState(() {
-              _hideResendButton = !_hideResendButton;
-            });
-          }
-        });
-      _controller.reverse(
-          from: _controller.value == 0.0 ? 1.0 : _controller.value);
-      _startCountdown();
-      box = Hive.box("user");
-     user = box.get('user', defaultValue: null);
-          print(user.token);
+    totalTimeInSeconds = time;
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: time))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.dismissed) {
+              setState(() {
+                _hideResendButton = !_hideResendButton;
+              });
+            }
+          });
+    _controller.reverse(
+        from: _controller.value == 0.0 ? 1.0 : _controller.value);
+    _startCountdown();
+    box = Hive.box("user");
+    user = box.get('user', defaultValue: null);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       key: scaffoldKey,
       backgroundColor: kPrimaryColor,
       body: SafeArea(
@@ -90,40 +85,53 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
               Header(
                 text: "",
               ),
-
-
-
-
-              SizedBox(height: 3.8 * SizeConfig.heightMultiplier,),
-
-              Text("Verify your account", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 25),),
-              SizedBox(height: 3.8 * SizeConfig.heightMultiplier,),
+              SizedBox(
+                height: 3.8 * SizeConfig.heightMultiplier,
+              ),
+              Text(
+                "Verify your account",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25),
+              ),
+              SizedBox(
+                height: 3.8 * SizeConfig.heightMultiplier,
+              ),
               WhiteCard(
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(27),
                   child: Form(
                     key: formKey,
                     child: Column(
-
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                        SizedBox(height: 2.9* SizeConfig.heightMultiplier,),
-
-                      Center(child: Image.asset("assets/images/mark2.png", height: 64, width: 64,)),
-                        SizedBox(height: 2.9* SizeConfig.heightMultiplier,),
-
-                Text("We just sent a verification code to your email. Please enter the code", textAlign: TextAlign.center, style: TextStyle(fontSize: 1.4 * SizeConfig.textMultiplier),),
-
-
+                        SizedBox(
+                          height: 2.9 * SizeConfig.heightMultiplier,
+                        ),
+                        Center(
+                            child: Image.asset(
+                          "assets/images/mark2.png",
+                          height: 64,
+                          width: 64,
+                        )),
+                        SizedBox(
+                          height: 2.9 * SizeConfig.heightMultiplier,
+                        ),
+                        Text(
+                          "We just sent a verification code to your email. Please enter the code",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 1.4 * SizeConfig.textMultiplier),
+                        ),
                         CustomTextField(
                           cursorColor: Colors.black,
 
-//                 focusNode: phoneNode,
+
                           textActionType: ActionType.next,
                           label: "Verification code",
-                          onSubmit: (v){
-                            // _fieldFocusChange(context, phoneNode, passwordNode);
+                          onSubmit: (v) {
+
                           },
                           validator: (v) {
                             if (v.isEmpty) {
@@ -132,51 +140,49 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
                             otp = v;
                             return null;
                           },
-                          // prefixIcon: Icons.phone
+
                         ),
-                        SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
+                        SizedBox(
+                          height: 3.6 * SizeConfig.heightMultiplier,
+                        ),
                         CustomButton(
-                    type: ButtonType.gradient,
+                          type: ButtonType.gradient,
                           textColor: Colors.white,
                           text: "VERIFY ME".toUpperCase(),
-                          onPressed: () async{
+                          onPressed: () async {
                             if (formKey.currentState.validate()) {
                               showLoadingDialog(context);
-                              GraphQLClient _client = graphQLConfiguration.clientToQuery();
-                              QueryResult result = await  _client.mutate(
-
+                              GraphQLClient _client =
+                                  graphQLConfiguration.clientToQuery();
+                              QueryResult result = await _client.mutate(
                                   MutationOptions(
-
                                       fetchPolicy: FetchPolicy.networkOnly,
                                       context: <String, dynamic>{
                                         'headers': <String, String>{
-                                          'Authorization': 'Bearer ${user.token}',
-
+                                          'Authorization':
+                                              'Bearer ${user.token}',
                                         }
                                       },
-                                      documentNode:  gql( queries.otpVerification(int.parse(otp)))
-                                  )
-                              );
-                              if(result.loading){
-
-
-                              }else if(result.hasException){
+                                      documentNode: gql(queries
+                                          .otpVerification(int.parse(otp)))));
+                              if (result.loading) {
+                              } else if (result.hasException) {
                                 pd.hide();
 
-                                CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, kPrimaryColor);
-                              }else{
+                                CommonUtils.showMsg(
+                                    result.exception.graphqlErrors[0].message,
+                                    context,
+                                    scaffoldKey,
+                                    kPrimaryColor);
+                              } else {
                                 pd.hide();
-                                CommonUtils.showMsg("Resent Successfully",  context, scaffoldKey, Colors.green);
-                            Future.delayed(const Duration(milliseconds: 500), () {
-
-                              pushToAndClearStack(context, SetUpComplete());
-                            });
-
-
-
-
+                                CommonUtils.showMsg("Resent Successfully",
+                                    context, scaffoldKey, Colors.green);
+                                Future.delayed(
+                                    const Duration(milliseconds: 500), () {
+                                  pushToAndClearStack(context, SetUpComplete());
+                                });
                               }
-
                             }
                           },
                         ),
@@ -185,28 +191,37 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SizedBox(height: 3.8 * SizeConfig.heightMultiplier,),
-                              Text("This code will expire in 10 minutes", style: TextStyle(fontSize: 1.6 * SizeConfig.textMultiplier )),
-                              SizedBox(height: 3.8 * SizeConfig.heightMultiplier,),
-                              _hideResendButton ? _getTimerText : _getResendButton,
-                              // Text("Resend Code",   style: TextStyle(fontSize: 1.6 * SizeConfig.textMultiplier, color: Colors.black, fontWeight: FontWeight.w700, decoration: TextDecoration.underline ),),
+                              SizedBox(
+                                height: 3.8 * SizeConfig.heightMultiplier,
+                              ),
+                              Text("This code will expire in 10 minutes",
+                                  style: TextStyle(
+                                      fontSize:
+                                          1.6 * SizeConfig.textMultiplier)),
+                              SizedBox(
+                                height: 3.8 * SizeConfig.heightMultiplier,
+                              ),
+                              _hideResendButton
+                                  ? _getTimerText
+                                  : _getResendButton,
+
                             ],
                           ),
                         ),
-                        SizedBox(height: 2.4 * SizeConfig.heightMultiplier,),
+                        SizedBox(
+                          height: 2.4 * SizeConfig.heightMultiplier,
+                        ),
                       ],
                     ),
                   ),
                 ),
               )
-
             ],
           ),
         ),
-      ) ,
+      ),
     );
   }
-
 
   get _getTimerText {
     return Container(
@@ -216,7 +231,10 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Icon(Icons.access_time, color: Colors.black,),
+            new Icon(
+              Icons.access_time,
+              color: Colors.black,
+            ),
             new SizedBox(
               width: 5.0,
             ),
@@ -229,33 +247,42 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
 
   get _getResendButton {
     return new InkWell(
-        onTap: ()async{
-          showLoadingDialog(context);
-          GraphQLClient _client = graphQLConfiguration.clientToQuery();
-          QueryResult result = await  _client.query(
-              QueryOptions(
-                  documentNode: gql(queries.resendOtp(user.email)),
-                  fetchPolicy: FetchPolicy.noCache,
-                context: <String, dynamic>{
-                  'headers': <String, String>{
-                    'Authorization': 'Bearer ${user.token}',
-
-                  }
-                },
-              ),
-
-          );
-          if(result.loading){
-            setState(() {
-              isLoading = true;
-            });
-          }else if (result.hasException) {
-            CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, kPrimaryColor);
-          }else {
-            CommonUtils.showMsg("Resent Successfully",  context, scaffoldKey, Colors.green);
-          }
-        },
-        child: Text(isLoading ? "Resending..." : "Resend Code",   style: TextStyle(fontSize: 1.6 * SizeConfig.textMultiplier, color: Colors.black, fontWeight: FontWeight.w700, decoration: TextDecoration.underline ),),
+      onTap: () async {
+        showLoadingDialog(context);
+        GraphQLClient _client = graphQLConfiguration.clientToQuery();
+        QueryResult result = await _client.query(
+          QueryOptions(
+            documentNode: gql(queries.resendOtp(user.email)),
+            fetchPolicy: FetchPolicy.noCache,
+            context: <String, dynamic>{
+              'headers': <String, String>{
+                'Authorization': 'Bearer ${user.token}',
+              }
+            },
+          ),
+        );
+        if (result.loading) {
+          setState(() {
+            isLoading = true;
+          });
+        } else if (result.hasException) {
+          pd.hide();
+          CommonUtils.showMsg(result.exception.graphqlErrors[0].message,
+              context, scaffoldKey, kPrimaryColor);
+        } else {
+          pd.hide();
+          CommonUtils.showMsg(
+              "Resent Successfully", context, scaffoldKey, Colors.green);
+        }
+      },
+      child: Text(
+        isLoading ? "Resending..." : "Resend Code",
+        style: TextStyle(
+            fontSize: 1.6 * SizeConfig.textMultiplier,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            decoration: TextDecoration.underline),
+      ),
     );
   }
 
@@ -267,6 +294,4 @@ class _VerificationState extends State<Verification> with TickerProviderStateMix
     _controller.reverse(
         from: _controller.value == 0.0 ? 1.0 : _controller.value);
   }
-
-
 }
