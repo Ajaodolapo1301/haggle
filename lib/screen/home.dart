@@ -29,7 +29,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       textScale = pref.getDouble("textScaleFactor") ?? 1.0;
     });
   }
-
+  bool selected = false;
   @override
   void initState() {
     initTextScale();
@@ -67,6 +67,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           unselectedItemColor: Colors.grey,
           onTap: (v) {
             setState(() {
+
               currentIndex = v;
               pageController.animateToPage(
                 currentIndex,
@@ -80,11 +81,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           items: [
             BottomNavigationBarItem(
 
-              icon: Image.asset("assets/images/dashboard.png", height: 25,),
+              icon: Image.asset("assets/images/dashboard.png", height: 25,  color: currentIndex == 0 ? kPrimaryColor : Colors.grey,),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Image.asset("assets/images/wallet.png", height: 25,),
+              icon: Image.asset("assets/images/wallet.png", height: 25, color: currentIndex == 1 ? kPrimaryColor : null),
               label: "Wallet",
             ),
             BottomNavigationBarItem(
@@ -98,11 +99,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Image.asset("assets/images/pig.png", height: 25,),
+              icon: Image.asset("assets/images/pig.png", height: 25, color: currentIndex == 3 ? kPrimaryColor : null,),
               label: "savings",
             ),
             BottomNavigationBarItem(
-              icon: Image.asset("assets/images/more.png", height: 25,),
+              icon: Image.asset("assets/images/more.png", height: 25, color: currentIndex  == 4 ? kPrimaryColor : null,),
               label: "More",
             ),
           ],

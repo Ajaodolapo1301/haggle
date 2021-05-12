@@ -24,7 +24,7 @@ class Homepage extends StatefulWidget {
   _HomepageState createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
 
   Box box;
   User user;
@@ -36,7 +36,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
   }
 
-
+  PageController pageController = PageController();
 
   final List<String> imgList = [
    "assets/images/banner.png",
@@ -245,18 +245,18 @@ String amount = "4000";
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20, left: 5),
-                          child: Text(
-                           usd ? " USD" :" NGN",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize:   9,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 15, left: 6),
+                            child: Text(
+                              usd ? " USD" :" NGN",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize:   9,
 
 
+                              ),
                             ),
                           ),
-                        ),
                     Spacer(),
 
                         AnimatedContainer(
@@ -438,7 +438,7 @@ String amount = "4000";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Market place", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                            Text("Trending crypto news", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                             SizedBox(height: 21,),
                             Column(
                               children: doMoreList.map((e) {
@@ -485,44 +485,45 @@ class TrendingNewsWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 230,
-                    // MediaQuery.of(context).size.width/ 1.7,
-                      child: Text("Blockchain Bites: BTC on Ethereum, DeFi’s latest stablecoin, the currency cold wars", textAlign: TextAlign.start, style: TextStyle(fontSize: 1.4 * SizeConfig.textMultiplier, fontWeight: FontWeight.w500),)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
 
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.7,
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children:[
-                        Text("6hrs ago",  style: TextStyle(fontSize: 1.1 * SizeConfig.textMultiplier),),
-                      SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
+                        child: Text("Blockchain Bites: BTC on Ethereum, DeFi’s latest stablecoin, the currency cold wars", textAlign: TextAlign.start, style: TextStyle(fontSize: 1.4 * SizeConfig.textMultiplier, fontWeight: FontWeight.w500),)),
 
-                        RichText(
-                          text: TextSpan(
-                            text: "Category:",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize:  1.1 * SizeConfig.textMultiplier,
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.7,
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children:[
+                          Text("6hrs ago",  style: TextStyle(fontSize: 1.1 * SizeConfig.textMultiplier),),
+                        SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
 
-                            ),
-                            children: [
-                              TextSpan(
-                                  text:" DeFi",
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize:  1.1 * SizeConfig.textMultiplier)
+                          RichText(
+                            text: TextSpan(
+                              text: "Category:",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize:  1.1 * SizeConfig.textMultiplier,
+
                               ),
+                              children: [
+                                TextSpan(
+                                    text:" DeFi",
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize:  1.1 * SizeConfig.textMultiplier)
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
 
 
@@ -531,7 +532,7 @@ class TrendingNewsWidget extends StatelessWidget {
           ),
 
         ),
-        SizedBox(height: 2.4 * SizeConfig.heightMultiplier,)
+        SizedBox(height: 4.4 * SizeConfig.heightMultiplier,)
 
       ],
     );
