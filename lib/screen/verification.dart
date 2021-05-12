@@ -79,144 +79,146 @@ class _VerificationState extends State<Verification>
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Header(
-                text: "",
-              ),
-              SizedBox(
-                height: 3.8 * SizeConfig.heightMultiplier,
-              ),
-              Text(
-                "Verify your account",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25),
-              ),
-              SizedBox(
-                height: 3.8 * SizeConfig.heightMultiplier,
-              ),
-              WhiteCard(
-                child: Padding(
-                  padding: const EdgeInsets.all(27),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 2.9 * SizeConfig.heightMultiplier,
-                        ),
-                        Center(
-                            child: Image.asset(
-                          "assets/images/mark2.png",
-                          height: 64,
-                          width: 64,
-                        )),
-                        SizedBox(
-                          height: 2.9 * SizeConfig.heightMultiplier,
-                        ),
-                        Text(
-                          "We just sent a verification code to your email. Please enter the code",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 1.4 * SizeConfig.textMultiplier),
-                        ),
-                        CustomTextField(
-                          cursorColor: Colors.black,
-
-
-                          textActionType: ActionType.next,
-                          label: "Verification code",
-                          onSubmit: (v) {
-
-                          },
-                          validator: (v) {
-                            if (v.isEmpty) {
-                              return "Field is required";
-                            }
-                            otp = v;
-                            return null;
-                          },
-
-                        ),
-                        SizedBox(
-                          height: 3.6 * SizeConfig.heightMultiplier,
-                        ),
-                        CustomButton(
-                          type: ButtonType.gradient,
-                          textColor: Colors.white,
-                          text: "VERIFY ME".toUpperCase(),
-                          onPressed: () async {
-                            if (formKey.currentState.validate()) {
-                              showLoadingDialog(context);
-                              GraphQLClient _client =
-                                  graphQLConfiguration.clientToQuery();
-                              QueryResult result = await _client.mutate(
-                                  MutationOptions(
-                                      fetchPolicy: FetchPolicy.networkOnly,
-                                      context: <String, dynamic>{
-                                        'headers': <String, String>{
-                                          'Authorization':
-                                              'Bearer ${user.token}',
-                                        }
-                                      },
-                                      documentNode: gql(queries
-                                          .otpVerification(int.parse(otp)))));
-                              if (result.loading) {
-                              } else if (result.hasException) {
-                                pd.hide();
-
-                                CommonUtils.showMsg(
-                                    result.exception.graphqlErrors[0].message,
-                                    context,
-                                    scaffoldKey,
-                                    kPrimaryColor);
-                              } else {
-                                pd.hide();
-                                CommonUtils.showMsg("Resent Successfully",
-                                    context, scaffoldKey, Colors.green);
-                                Future.delayed(
-                                    const Duration(milliseconds: 500), () {
-                                  pushToAndClearStack(context, SetUpComplete());
-                                });
-                              }
-                            }
-                          },
-                        ),
-                        Container(
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 3.8 * SizeConfig.heightMultiplier,
-                              ),
-                              Text("This code will expire in 10 minutes",
-                                  style: TextStyle(
-                                      fontSize:
-                                          1.6 * SizeConfig.textMultiplier)),
-                              SizedBox(
-                                height: 3.8 * SizeConfig.heightMultiplier,
-                              ),
-                              _hideResendButton
-                                  ? _getTimerText
-                                  : _getResendButton,
-
-                            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Header(
+                  text: "",
+                ),
+                SizedBox(
+                  height: 3.8 * SizeConfig.heightMultiplier,
+                ),
+                Text(
+                  "Verify your account",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25),
+                ),
+                SizedBox(
+                  height: 3.8 * SizeConfig.heightMultiplier,
+                ),
+                WhiteCard(
+                  child: Padding(
+                    padding: const EdgeInsets.all(27),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 2.9 * SizeConfig.heightMultiplier,
                           ),
-                        ),
-                        SizedBox(
-                          height: 2.4 * SizeConfig.heightMultiplier,
-                        ),
-                      ],
+                          Center(
+                              child: Image.asset(
+                            "assets/images/mark2.png",
+                            height: 64,
+                            width: 64,
+                          )),
+                          SizedBox(
+                            height: 2.9 * SizeConfig.heightMultiplier,
+                          ),
+                          Text(
+                            "We just sent a verification code to your email. Please enter the code",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 1.4 * SizeConfig.textMultiplier),
+                          ),
+                          CustomTextField(
+                            cursorColor: Colors.black,
+
+
+                            textActionType: ActionType.next,
+                            label: "Verification code",
+                            onSubmit: (v) {
+
+                            },
+                            validator: (v) {
+                              if (v.isEmpty) {
+                                return "Field is required";
+                              }
+                              otp = v;
+                              return null;
+                            },
+
+                          ),
+                          SizedBox(
+                            height: 3.6 * SizeConfig.heightMultiplier,
+                          ),
+                          CustomButton(
+                            type: ButtonType.gradient,
+                            textColor: Colors.white,
+                            text: "VERIFY ME".toUpperCase(),
+                            onPressed: () async {
+                              if (formKey.currentState.validate()) {
+                                showLoadingDialog(context);
+                                GraphQLClient _client =
+                                    graphQLConfiguration.clientToQuery();
+                                QueryResult result = await _client.mutate(
+                                    MutationOptions(
+                                        fetchPolicy: FetchPolicy.networkOnly,
+                                        context: <String, dynamic>{
+                                          'headers': <String, String>{
+                                            'Authorization':
+                                                'Bearer ${user.token}',
+                                          }
+                                        },
+                                        documentNode: gql(queries
+                                            .otpVerification(int.parse(otp)))));
+                                if (result.loading) {
+                                } else if (result.hasException) {
+                                  pd.hide();
+
+                                  CommonUtils.showMsg(
+                                      result.exception.graphqlErrors[0].message,
+                                      context,
+                                      scaffoldKey,
+                                      kPrimaryColor);
+                                } else {
+                                  pd.hide();
+                                  CommonUtils.showMsg("Resent Successfully",
+                                      context, scaffoldKey, Colors.green);
+                                  Future.delayed(
+                                      const Duration(milliseconds: 500), () {
+                                    pushToAndClearStack(context, SetUpComplete());
+                                  });
+                                }
+                              }
+                            },
+                          ),
+                          Container(
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 3.8 * SizeConfig.heightMultiplier,
+                                ),
+                                Text("This code will expire in 10 minutes",
+                                    style: TextStyle(
+                                        fontSize:
+                                            1.6 * SizeConfig.textMultiplier)),
+                                SizedBox(
+                                  height: 3.8 * SizeConfig.heightMultiplier,
+                                ),
+                                _hideResendButton
+                                    ? _getTimerText
+                                    : _getResendButton,
+
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2.4 * SizeConfig.heightMultiplier,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

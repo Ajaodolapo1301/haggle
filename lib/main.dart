@@ -66,11 +66,7 @@ class MyApp extends StatelessWidget {
                           fontFamily: 'BasisGrotesquePro'
                           // primarySwatch: Colors.blue,
                           ),
-                      home:
-            // user != null ?
-            //           DashboardPage())
-            //               :
-                      Login()),
+                      home: Login()),
                 ),
               ),
             );

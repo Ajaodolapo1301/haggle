@@ -159,8 +159,8 @@ String amount = "0.00";
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // SizedBox(height:1.2 * SizeConfig.heightMultiplier,),
 
-                    // SizedBox(height: 2 * SizeConfig.heightMultiplier,),
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -185,7 +185,6 @@ String amount = "0.00";
                           child: Center(child: Text("Aj", style: TextStyle(fontSize: 1.7 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),)),
                         ),
                       ),
-
                       Text("HaggleX", style: TextStyle(color: Colors.white, fontSize: 1.9 * SizeConfig.textMultiplier, fontWeight: FontWeight.w600), ),
                       Container(
                         padding: EdgeInsets.all(7),
@@ -202,12 +201,11 @@ String amount = "0.00";
 
                     ],
                   ),
-                    // SizedBox(height:5 * SizeConfig.heightMultiplier,),
+
                    Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        Text("Total portfolio balance", style: TextStyle(color: Colors.white, fontSize: 9),),
-                  // SizedBox(height: 0.6 * SizeConfig.heightMultiplier,),
 
                     Row(
                     // crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -252,8 +250,8 @@ String amount = "0.00";
                         AnimatedContainer(
                           duration: Duration(microseconds: 300),
                           curve: Curves.decelerate,
-                          width: 30.3 * SizeConfig.widthMultiplier,
-                          height: 4.9 * SizeConfig.heightMultiplier,
+                          width: 27.3 * SizeConfig.widthMultiplier,
+                          height: 4.0 * SizeConfig.heightMultiplier,
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 4),
                           child: Row(
