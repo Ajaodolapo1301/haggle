@@ -207,6 +207,8 @@ String amount = "0.00";
                      children: [
                        Text("Total portfolio balance", style: TextStyle(color: Colors.white, fontSize: 9),),
 
+
+
                     Row(
 
                       children: [
@@ -265,27 +267,25 @@ String amount = "0.00";
                                 usd = !usd;
                               });
                               },
-                                child: Expanded(
-                                  child: Material(
+                                child: Material(
 
-                                    borderRadius: BorderRadius.circular(50),
-                                    elevation:usd ?  1.0 : 0.0,
-                                    child: AnimatedContainer(
-                                      curve: Curves.fastLinearToSlowEaseIn,
-                                      duration: Duration(microseconds: 500),
+                                  borderRadius: BorderRadius.circular(50),
+                                  elevation:usd ?  1.0 : 0.0,
+                                  child: AnimatedContainer(
+                                    curve: Curves.fastLinearToSlowEaseIn,
+                                    duration: Duration(microseconds: 500),
 
-                                      width: 12 * SizeConfig.widthMultiplier,
-                                      height: 3.5 * SizeConfig.heightMultiplier,
-                                      decoration: BoxDecoration(
+                                    width: 12 * SizeConfig.widthMultiplier,
+                                    height: 3.5 * SizeConfig.heightMultiplier,
+                                    decoration: BoxDecoration(
 
-                                          borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(color: Colors.white, ),
-                                        color: usd ?  gold: Colors.white,
-
-                                      ),
-                                      child: Center(child: Text("USD", style: TextStyle(fontSize: 9, color: !usd ?Colors.grey : Colors.black, fontWeight: FontWeight.bold),)),
+                                        borderRadius: BorderRadius.circular(50),
+                                      border: Border.all(color: Colors.white, ),
+                                      color: usd ?  gold: Colors.white,
 
                                     ),
+                                    child: Center(child: Text("USD", style: TextStyle(fontSize: 9, color: !usd ?Colors.grey : Colors.black, fontWeight: FontWeight.bold),)),
+
                                   ),
                                 ),
                               ),
@@ -296,23 +296,21 @@ String amount = "0.00";
                                     usd = !usd;
                                   });
                                 },
-                                child: Expanded(
-                                  child: Material(
-                                    elevation: !usd ?  1.0 : 0.0,
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: AnimatedContainer(
-                                      curve: Curves.fastLinearToSlowEaseIn,
-                                      duration: Duration(milliseconds: 300),
-                                      width: 12 * SizeConfig.widthMultiplier,
-                                      height: 3.5 * SizeConfig.heightMultiplier,
-                                      decoration: BoxDecoration(
+                                child: Material(
+                                  elevation: !usd ?  1.0 : 0.0,
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: AnimatedContainer(
+                                    curve: Curves.fastLinearToSlowEaseIn,
+                                    duration: Duration(milliseconds: 300),
+                                    width: 12 * SizeConfig.widthMultiplier,
+                                    height: 3.5 * SizeConfig.heightMultiplier,
+                                    decoration: BoxDecoration(
 
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(color: Colors.white),
-                                        color:!usd ?  gold: Colors.white,
-                                      ),
-                                      child: Center(child: Text("NGN", style: TextStyle(fontSize: 9,color: usd ?Colors.grey : Colors.black,  fontWeight: FontWeight.bold),)),
+                                      borderRadius: BorderRadius.circular(50),
+                                      border: Border.all(color: Colors.white),
+                                      color:!usd ?  gold: Colors.white,
                                     ),
+                                    child: Center(child: Text("NGN", style: TextStyle(fontSize: 9,color: usd ?Colors.grey : Colors.black,  fontWeight: FontWeight.bold),)),
                                   ),
                                 ),
                               ),
@@ -377,8 +375,8 @@ String amount = "0.00";
                         ),
                       ),
 
-
-
+                      //
+                      //
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 19),
                         child: Column(
@@ -407,9 +405,9 @@ String amount = "0.00";
                             Text("Trending crypto news",  style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
                             SizedBox(height: 21,),
                             Column(
-                              children: doMoreList.map((e) {
+                              children: ["1", "2"].map((e) {
                                 return  TrendingNewsWidget(
-                      
+
                                 );
                               }).toList(),
                             )
@@ -417,6 +415,8 @@ String amount = "0.00";
                           ],
                         ),
                       ),
+
+
                     ],
                   ),
                 ),
@@ -440,8 +440,8 @@ class TrendingNewsWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 7 * SizeConfig.heightMultiplier,
-          // width: 52,
+          height: 5 * SizeConfig.heightMultiplier,
+
           child: Row(
             children: [
               ClipRRect(
@@ -450,7 +450,7 @@ class TrendingNewsWidget extends StatelessWidget {
                   "assets/images/bit.png",
                 ),
               ),
-              SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
+              SizedBox(width: 5.0 * SizeConfig.widthMultiplier,),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -55,89 +55,72 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             children: [
               Homepage(),
               Container(),
-              Container(),
+              // Container(),
               Container(),
               Container()
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          selectedItemColor: kPrimaryColor,
-          unselectedItemColor: Colors.grey,
-          onTap: (v) {
-            setState(() {
+        bottomNavigationBar: Container(
+          height: 75,
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: kPrimaryColor,
 
-              currentIndex = v;
-              pageController.animateToPage(
-                currentIndex,
-                duration: Duration(milliseconds: 200),
-                curve: Curves.ease,
-              );
-            });
-          },
-          currentIndex: currentIndex,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
+            selectedLabelStyle: TextStyle(
+              fontSize: 12
+            ),
+            unselectedItemColor: Colors.grey,
+            onTap: (v) {
+              setState(() {
 
-              icon: Image.asset("assets/images/dashboard.png", height: 25,  color: currentIndex == 0 ? kPrimaryColor : Colors.grey,),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset("assets/images/wallet.png", height: 25, color: currentIndex == 1 ? kPrimaryColor : null),
-              label: "Wallet",
-            ),
-            BottomNavigationBarItem(
-              icon: Transform.scale(
-                scale: 0.8,
-                  child: FloatingActionButton(
-                    backgroundColor: Color(0xff2E1963),
-                    child: Icon(Icons.compare_arrows_outlined, size: 30,),
-                    elevation: 0.2,
-                  )),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset("assets/images/pig.png", height: 25, color: currentIndex == 3 ? kPrimaryColor : null,),
-              label: "savings",
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset("assets/images/more.png", height: 25, color: currentIndex  == 4 ? kPrimaryColor : null,),
-              label: "More",
-            ),
-          ],
+                currentIndex = v;
+                pageController.animateToPage(
+                  currentIndex,
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.ease,
+                );
+              });
+            },
+            currentIndex: currentIndex,
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+
+                icon: Image.asset("assets/images/dashboard.png", height: 20,   color: currentIndex == 0 ? kPrimaryColor : Colors.grey,),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset("assets/images/wallet.png", height: 20, color: currentIndex == 1 ? kPrimaryColor : null),
+                label: "Wallet",
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Transform.scale(
+              //     scale: 0.6,
+              //       child: Padding(
+              //         padding:  EdgeInsets.only(bottom: 10),
+              //         child: FloatingActionButton(
+              //           backgroundColor: Color(0xff2E1963),
+              //           child: Icon(Icons.compare_arrows_outlined, size: 30,),
+              //           elevation: 0.2,
+              //         ),
+              //       )),
+              //   label: "",
+              // ),
+              BottomNavigationBarItem(
+                icon: Image.asset("assets/images/pig.png", height: 20, color: currentIndex == 2 ? kPrimaryColor : null,),
+                label: "savings",
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset("assets/images/more.png", height: 20, color: currentIndex  == 3  ? kPrimaryColor : null,),
+                label: "More",
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   try {
-  //     setState(() {});
-  //     print("LifeState: $state");
-  //     if (state == AppLifecycleState.paused && !appState.selectingFile) {
-  //       _timer = Timer(Duration(seconds: 30), () {
-  //         if (state == AppLifecycleState.paused) {
-  //           Navigator.pushAndRemoveUntil(
-  //               context,
-  //               MaterialPageRoute(
-  //                   builder: (_) =>
-  //                       WelcomeBackPage(
-  //
-  //                       )),
-  //                   (route) => false);
-  //         }
-  //         _timer.cancel();
-  //       });
-  //     }
-  //     if (state == AppLifecycleState.resumed) {
-  //       appState.selectingFile = false;
-  //     }
-  //   } catch (e) {}
-  // }
-
 
 
 

@@ -14,7 +14,7 @@ class DoMoreWidget extends StatelessWidget {
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.2),
               spreadRadius: 3,
               blurRadius: 7,
               offset: Offset(0, 3), // changes position of shadow
@@ -23,12 +23,12 @@ class DoMoreWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)
       ),
       margin: EdgeInsets.symmetric(vertical: 7),
-      height: 9.3 * SizeConfig.heightMultiplier,
+
       child: Material(
         borderRadius: BorderRadius.circular(10),
         elevation: 0.2,
         child: Padding(
-          padding:  EdgeInsets.only(left: 1.9 * SizeConfig.heightMultiplier),
+          padding:  EdgeInsets.symmetric(horizontal: 1.9 * SizeConfig.heightMultiplier, vertical:  1.5 * SizeConfig.heightMultiplier, ),
           child: Row(
 
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,7 +40,7 @@ class DoMoreWidget extends StatelessWidget {
                     color: Color(0xfff6f4ff)
                 ),
                 child: Padding(
-                  padding:  EdgeInsets.all(4.0),
+                  padding:  EdgeInsets.all(3.0),
                   child: doMoreModel.isIcon ? Icon(Icons.credit_card_sharp, color: kPrimaryColor): Image.asset(doMoreModel.image),
                 ),
                 height: 6.1 * SizeConfig.heightMultiplier,
@@ -52,8 +52,8 @@ class DoMoreWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(doMoreModel.title,  style: TextStyle(fontSize: 1.6 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
-                  Text(doMoreModel.subTitle,  style: TextStyle(fontSize:  1.6 * SizeConfig.textMultiplier, fontWeight: FontWeight.w400),)
+                  Text(doMoreModel.title,  style: TextStyle(fontSize: 1.3 * SizeConfig.textMultiplier, fontWeight: FontWeight.w600),),
+                  Text(doMoreModel.subTitle,  style: TextStyle(fontSize:  1.3 * SizeConfig.textMultiplier, fontWeight: FontWeight.w400),)
                 ],
               )
             ],
