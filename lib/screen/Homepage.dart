@@ -134,7 +134,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
 
   ];
   bool _switchValue = false;
-String amount = "4000";
+String amount = "0.00";
   bool usd = true;
   @override
   Widget build(BuildContext context) {
@@ -213,7 +213,7 @@ String amount = "4000";
                       children: [
                         RichText(
                           text: TextSpan(
-                            text: usd ? "\$":"N",
+                            text: usd ? "\$":"₦",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -230,18 +230,7 @@ String amount = "4000";
 
                                 ),
                               ),
-                              // TextSpan(
-                              //   text: "NGN",
-                              //   style: TextStyle(
-                              //     color: Colors.white,
-                              //     fontWeight: FontWeight.bold,
-                              //     fontSize:   9,
-                              //     fontFeatures: [
-                              //       FontFeature.enable("sups"),
-                              //     ],
-                              //
-                              //   ),
-                              // ),
+
                             ],
                           ),
                         ),
@@ -356,41 +345,18 @@ String amount = "4000";
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
                     Container(
-                    height: 130,
-                    decoration: BoxDecoration(
-
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-
-                          image: AssetImage(imgList[0], )
+                      height: 130,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, i){
+                          return  Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Image.asset(imgList[i]),
+                          );
+                          },
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                      color: kPrimaryColor,
                     ),
 
-                  ),
-                  //     SingleChildScrollView(
-                  // scrollDirection: Axis.horizontal,
-                  //       child: Row(
-                  //         children: imgList.map((e) {
-                  //           print(e);
-                  //           return Container(
-                  //             height: 130,
-                  //             decoration: BoxDecoration(
-                  //
-                  //               image: DecorationImage(
-                  //                   fit: BoxFit.cover,
-                  //                   image: AssetImage(e)
-                  //               ),
-                  //               borderRadius: BorderRadius.circular(20),
-                  //               color: kPrimaryColor,
-                  //             ),
-                  //
-                  //           );
-                  //         }).toList(),
-                  //
-                  //       )
-                  //     ),
 
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 19),
