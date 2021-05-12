@@ -52,8 +52,8 @@ class DoMoreWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(doMoreModel.title,  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),),
-                  Text(doMoreModel.subTitle,  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),)
+                  Text(doMoreModel.title,  style: TextStyle(fontSize: 1.6 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                  Text(doMoreModel.subTitle,  style: TextStyle(fontSize:  1.6 * SizeConfig.textMultiplier, fontWeight: FontWeight.w400),)
                 ],
               )
             ],

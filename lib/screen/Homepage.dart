@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +57,7 @@ class _HomepageState extends State<Homepage> {
         name:"Bitcoin (BTC)",
         currency: "NGN",
         amount:" 30,000",
-        image: "assets/images/bitcoin.png",
+        image: "assets/images/BTC.png",
       percentage: "+2.5% ",
     ),
     MarketModel(
@@ -132,13 +134,13 @@ class _HomepageState extends State<Homepage> {
 
   ];
   bool _switchValue = false;
-
+String amount = "4000";
   bool usd = true;
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // backgroundColor: kPrimaryColor,
+
 
       body: SafeArea(
         child: SingleChildScrollView(
@@ -149,14 +151,15 @@ class _HomepageState extends State<Homepage> {
               children: [
 
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 2.4 * SizeConfig.heightMultiplier , vertical: 1.2 * SizeConfig.heightMultiplier),
+              padding: EdgeInsets.symmetric(horizontal: 2.4 * SizeConfig.heightMultiplier , vertical: 1.7 * SizeConfig.heightMultiplier),
               height: 23.6 * SizeConfig.heightMultiplier,
               color: kPrimaryColor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
 
-                    SizedBox(height: 2.2 * SizeConfig.heightMultiplier,),
+                    // SizedBox(height: 2 * SizeConfig.heightMultiplier,),
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -198,23 +201,68 @@ class _HomepageState extends State<Homepage> {
 
                     ],
                   ),
-                    SizedBox(height:3.2 * SizeConfig.heightMultiplier,),
+                    // SizedBox(height:5 * SizeConfig.heightMultiplier,),
                    Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        Text("Total portfolio balance", style: TextStyle(color: Colors.white, fontSize: 9),),
-                  SizedBox(height: 1.2 * SizeConfig.heightMultiplier,),
+                  // SizedBox(height: 0.6 * SizeConfig.heightMultiplier,),
 
                     Row(
                     // crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
-                        Text("****", style: TextStyle(color: Colors.white, fontSize: 25),),
+                        RichText(
+                          text: TextSpan(
+                            text: usd ? "\$":"N",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize:   25,
+
+                            ),
+                            children: [
+                              TextSpan(
+                                  text: amount,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:   25,
+
+                                ),
+                              ),
+                              // TextSpan(
+                              //   text: "NGN",
+                              //   style: TextStyle(
+                              //     color: Colors.white,
+                              //     fontWeight: FontWeight.bold,
+                              //     fontSize:   9,
+                              //     fontFeatures: [
+                              //       FontFeature.enable("sups"),
+                              //     ],
+                              //
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20, left: 5),
+                          child: Text(
+                           usd ? " USD" :" NGN",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize:   9,
+
+
+                            ),
+                          ),
+                        ),
                     Spacer(),
 
                         AnimatedContainer(
                           duration: Duration(microseconds: 300),
                           curve: Curves.decelerate,
-                          width: 29.3 * SizeConfig.widthMultiplier,
+                          width: 30.3 * SizeConfig.widthMultiplier,
                           height: 4.9 * SizeConfig.heightMultiplier,
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 4),
@@ -229,42 +277,55 @@ class _HomepageState extends State<Homepage> {
                                 usd = !usd;
                               });
                               },
-                                child: AnimatedContainer(
-                                  curve: Curves.fastLinearToSlowEaseIn,
-                                  duration: Duration(microseconds: 500),
+                                child: Expanded(
+                                  child: Material(
 
-                                  width: 12 * SizeConfig.widthMultiplier,
-                                  height: 3.5 * SizeConfig.heightMultiplier,
-                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    elevation:usd ?  1.0 : 0.0,
+                                    child: AnimatedContainer(
+                                      curve: Curves.fastLinearToSlowEaseIn,
+                                      duration: Duration(microseconds: 500),
 
-                                      borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(color: Colors.white),
-                                    color: usd ?  gold: Colors.white,
+                                      width: 12 * SizeConfig.widthMultiplier,
+                                      height: 3.5 * SizeConfig.heightMultiplier,
+                                      decoration: BoxDecoration(
 
+                                          borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(color: Colors.white, ),
+                                        color: usd ?  gold: Colors.white,
+
+                                      ),
+                                      child: Center(child: Text("USD", style: TextStyle(fontSize: 9, color: !usd ?Colors.grey : Colors.black, fontWeight: FontWeight.bold),)),
+
+                                    ),
                                   ),
-                                  child: Center(child: Text("USD", style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),)),
-
                                 ),
                               ),
-                              SizedBox(width: 5,),
+                              // SizedBox(width: 5,),
                               InkWell(
                                 onTap: (){
                                   setState(() {
                                     usd = !usd;
                                   });
                                 },
-                                child: AnimatedContainer(
-                                  curve: Curves.fastLinearToSlowEaseIn,
-                                  duration: Duration(milliseconds: 300),
-                                  width: 12 * SizeConfig.widthMultiplier,
-                                  height: 3.5 * SizeConfig.heightMultiplier,
-                                  decoration: BoxDecoration(
-
+                                child: Expanded(
+                                  child: Material(
+                                    elevation: !usd ?  1.0 : 0.0,
                                     borderRadius: BorderRadius.circular(50),
-                                    border: Border.all(color: Colors.white),
-                                    color:!usd ?  gold: Colors.white,
+                                    child: AnimatedContainer(
+                                      curve: Curves.fastLinearToSlowEaseIn,
+                                      duration: Duration(milliseconds: 300),
+                                      width: 12 * SizeConfig.widthMultiplier,
+                                      height: 3.5 * SizeConfig.heightMultiplier,
+                                      decoration: BoxDecoration(
+
+                                        borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(color: Colors.white),
+                                        color:!usd ?  gold: Colors.white,
+                                      ),
+                                      child: Center(child: Text("NGN", style: TextStyle(fontSize: 9,color: usd ?Colors.grey : Colors.black,  fontWeight: FontWeight.bold),)),
+                                    ),
                                   ),
-                                  child: Center(child: Text("NGN", style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold),)),
                                 ),
                               ),
 
@@ -292,6 +353,7 @@ class _HomepageState extends State<Homepage> {
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   color: Colors.white,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
                     Container(
                     height: 130,
@@ -368,8 +430,27 @@ class _HomepageState extends State<Homepage> {
 
                           ],
                         ),
-                      )
+                      ),
 
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 19),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Market place", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                            SizedBox(height: 21,),
+                            Column(
+                              children: doMoreList.map((e) {
+                                return  TrendingNewsWidget(
+                      
+                                );
+                              }).toList(),
+                            )
+
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -387,6 +468,75 @@ class _HomepageState extends State<Homepage> {
 
 
 
+class TrendingNewsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 7 * SizeConfig.heightMultiplier,
+          // width: 52,
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  "assets/images/bit.png",
+                ),
+              ),
+              SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 230,
+                    // MediaQuery.of(context).size.width/ 1.7,
+                      child: Text("Blockchain Bites: BTC on Ethereum, DeFi’s latest stablecoin, the currency cold wars", textAlign: TextAlign.start, style: TextStyle(fontSize: 1.4 * SizeConfig.textMultiplier, fontWeight: FontWeight.w500),)),
+
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.7,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children:[
+                        Text("6hrs ago",  style: TextStyle(fontSize: 1.1 * SizeConfig.textMultiplier),),
+                      SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
+
+                        RichText(
+                          text: TextSpan(
+                            text: "Category:",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize:  1.1 * SizeConfig.textMultiplier,
+
+                            ),
+                            children: [
+                              TextSpan(
+                                  text:" DeFi",
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize:  1.1 * SizeConfig.textMultiplier)
+                              ),
+
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+
+
+
+            ],
+          ),
+
+        ),
+        SizedBox(height: 2.4 * SizeConfig.heightMultiplier,)
+
+      ],
+    );
+  }
+}
 
 
 
