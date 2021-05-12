@@ -140,7 +140,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
 
 
   ];
-  bool _switchValue = false;
+
 String amount = "0.00";
   bool usd = true;
   @override
