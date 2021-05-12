@@ -171,7 +171,7 @@ var refcode;
                                 );
                               } else{
 
-                              print(result.data["getActiveCountries"]);
+
 
                                 (result.data)["getActiveCountries"].forEach((dat){
 
@@ -183,7 +183,7 @@ var refcode;
 
                                 });
 
-                                print(countries?.flag);
+
 
                                 return Container();
 

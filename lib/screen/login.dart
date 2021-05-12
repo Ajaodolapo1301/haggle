@@ -18,18 +18,12 @@ import 'package:progress_dialog/progress_dialog.dart';
 
 import '../GraphQlConfig.dart';
 
-
-
-
-
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   var email;
 
@@ -41,6 +35,7 @@ class _LoginState extends State<Login> {
     pd = await CommonUtils.showProgressDialog(
         context, "Processing...Please wait!");
   }
+
   final formKey = GlobalKey<FormState>();
   Queries queries = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -53,36 +48,45 @@ class _LoginState extends State<Login> {
       body: SafeArea(
         bottom: false,
         child: Container(
-          padding: EdgeInsets.all(4.5* SizeConfig.heightMultiplier),
+          padding: EdgeInsets.all(4.5 * SizeConfig.heightMultiplier),
           child: SingleChildScrollView(
             child: Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 9.8 * SizeConfig.heightMultiplier,),
-                  Text("Welcome!", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 40) ,),
-                  SizedBox(height: 7.3 * SizeConfig.heightMultiplier,),
+                  SizedBox(
+                    height: 9.8 * SizeConfig.heightMultiplier,
+                  ),
+                  Text(
+                    "Welcome!",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 40),
+                  ),
+                  SizedBox(
+                    height: 7.3 * SizeConfig.heightMultiplier,
+                  ),
                   CustomTextField(
-                  type: FieldType.email,
-                      textActionType: ActionType.next,
-                      label: "Email Address",
-                      onSubmit: (v){
-
-                      },
-                      validator: (v) {
-                        if (v.isEmpty) {
-                          return "Field is required";
-                        }
-                        email = v;
-                        return null;
-                      },
-
-                    ),
-                  SizedBox(height: 3.6* SizeConfig.heightMultiplier,),
+                    type: FieldType.email,
+                    textActionType: ActionType.next,
+                    label: "Email Address",
+                    onSubmit: (v) {},
+                    validator: (v) {
+                      if (v.isEmpty) {
+                        return "Field is required";
+                      }
+                      email = v;
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 3.6 * SizeConfig.heightMultiplier,
+                  ),
                   CustomTextField(
                     type: FieldType.text,
-                    obscureText: !isVisiblePassword ,
+                    obscureText: !isVisiblePassword,
                     suffix: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -96,9 +100,7 @@ class _LoginState extends State<Login> {
                     ),
                     textActionType: ActionType.next,
                     label: "Password (Min. 8 characters)",
-                    onSubmit: (v){
-
-                    },
+                    onSubmit: (v) {},
                     validator: (v) {
                       if (v.isEmpty) {
                         return "Field is required";
@@ -106,73 +108,81 @@ class _LoginState extends State<Login> {
                       password = v;
                       return null;
                     },
-
                   ),
-                  SizedBox(height: 3.0* SizeConfig.heightMultiplier,),
-    Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-              Text("Forgot Password", style: TextStyle(color: Colors.white, fontSize:1.3 * SizeConfig.textMultiplier ),)
-        ],
-    ),
-
-                  SizedBox(height: 5.4* SizeConfig.heightMultiplier,),
+                  SizedBox(
+                    height: 3.0 * SizeConfig.heightMultiplier,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Forgot Password",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 1.3 * SizeConfig.textMultiplier),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.4 * SizeConfig.heightMultiplier,
+                  ),
                   CustomButton(
-
                     textColor: Colors.black,
                     text: "Log In".toUpperCase(),
-                    onPressed: () async{
+                    onPressed: () async {
                       if (formKey.currentState.validate()) {
-                      login();
-
+                        login();
                       }
                     },
                   ),
-                  SizedBox(height: 3.9* SizeConfig.heightMultiplier,),
-                  Center(child: GestureDetector(
-                    onTap: (){
-                      pushTo(context, Register());
-                    },
-                      child: Text("New User? Create a new account", style: TextStyle(color: Colors.white, fontSize:1.3 * SizeConfig.textMultiplier ),)))
+                  SizedBox(
+                    height: 3.9 * SizeConfig.heightMultiplier,
+                  ),
+                  Center(
+                      child: GestureDetector(
+                          onTap: () {
+                            pushTo(context, Register());
+                          },
+                          child: Text(
+                            "New User? Create a new account",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 1.3 * SizeConfig.textMultiplier),
+                          )))
                 ],
               ),
             ),
           ),
         ),
-      ) ,
+      ),
     );
   }
 
-
-  login()async{
+  void login() async {
     showLoadingDialog(context);
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await  _client.mutate(
-
-        MutationOptions(
-
-            fetchPolicy: FetchPolicy.networkOnly,
-
-            documentNode:  gql( queries.login(email,  password, ))
-        )
-    );
-    if(result.loading){
-
-
-    }else if(result.hasException){
+    QueryResult result = await _client.mutate(MutationOptions(
+        fetchPolicy: FetchPolicy.networkOnly,
+        documentNode: gql(queries.login(
+          email,
+          password,
+        ))));
+    if (result.loading) {
+    } else if (result.hasException) {
       pd.hide();
 
-      CommonUtils.showMsg(result.exception.graphqlErrors[0].message,  context, scaffoldKey, Colors.red);
-    }else{
+      CommonUtils.showMsg(result.exception.graphqlErrors[0].message, context,
+          scaffoldKey, Colors.red);
+    } else {
       pd.hide();
       user = User.fromJson2(result.data);
       Box box;
       box = Hive.box("user");
       box.put('user', user);
 
-      user.emailVerified  ?    pushToAndClearStack(context, Homepage()) : pushTo(context, Verification()) ;
-
-
+      user.emailVerified
+          ? pushToAndClearStack(context, Homepage())
+          : pushTo(context, Verification());
     }
   }
 }
