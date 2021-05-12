@@ -208,7 +208,7 @@ String amount = "0.00";
                        Text("Total portfolio balance", style: TextStyle(color: Colors.white, fontSize: 9),),
 
                     Row(
-                    // crossAxisAlignment: CrossAxisAlignment.baseline,
+
                       children: [
                         RichText(
                           text: TextSpan(
@@ -289,7 +289,7 @@ String amount = "0.00";
                                   ),
                                 ),
                               ),
-                              // SizedBox(width: 5,),
+
                               InkWell(
                                 onTap: (){
                                   setState(() {
@@ -344,7 +344,7 @@ String amount = "0.00";
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
                     Container(
-                      height: 16* SizeConfig.heightMultiplier,
+                      height: 16 * SizeConfig.heightMultiplier,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                           itemCount: imgList.length,
@@ -363,8 +363,8 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Market place", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                        SizedBox(height: 21,),
+                            Text("Markets", style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                        SizedBox(height: 10,),
                             Column(
                               children: marketModelList.map((e) {
                                 return  MarketWidget(
@@ -384,8 +384,8 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Do more with HaggleX", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                            SizedBox(height: 21,),
+                            Text("Do more with HaggleX",  style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                            SizedBox(height: 10,),
                             Column(
                               children: doMoreList.map((e) {
                                 return  DoMoreWidget(
@@ -404,7 +404,7 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Trending crypto news", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                            Text("Trending crypto news",  style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
                             SizedBox(height: 21,),
                             Column(
                               children: doMoreList.map((e) {
