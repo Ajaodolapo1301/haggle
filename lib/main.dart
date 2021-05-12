@@ -29,7 +29,7 @@ Future<void> main() async {
   final box = Hive.box("user");
   User user = box.get('user', defaultValue: null);
   runApp(DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => MultiProvider(providers: [
             ChangeNotifierProvider(create: (_) => AppState()),
           ], child: MyApp(user: user,))));
@@ -68,8 +68,9 @@ class MyApp extends StatelessWidget {
                           ),
                       home:
             // user != null ?
-                      DashboardPage())
-                          // : Login()),
+            //           DashboardPage())
+            //               :
+                      Login()),
                 ),
               ),
             );

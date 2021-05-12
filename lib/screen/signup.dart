@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:haggle/constants/colorConstants.dart';
@@ -236,7 +237,10 @@ var refcode;
                                 Expanded(
                                   child: CustomTextField(
                                     cursorColor: Colors.black,
-
+                                    textInputFormatters: [
+                                      WhitelistingTextInputFormatter.digitsOnly,
+                                      new LengthLimitingTextInputFormatter(11),
+                                    ],
                                     type: FieldType.phone,
                                     textActionType: ActionType.next,
                                     label: "Enter your phone number",

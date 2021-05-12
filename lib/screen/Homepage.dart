@@ -140,9 +140,10 @@ String amount = "0.00";
   Widget build(BuildContext context) {
 
     return Scaffold(
-
+// backgroundColor: kPrimaryColor,
 
       body: SafeArea(
+        // bottom: false,
         child: SingleChildScrollView(
           physics : ClampingScrollPhysics(),
           child: Container(
@@ -345,9 +346,10 @@ String amount = "0.00";
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:  [
                     Container(
-                      height: 130,
+                      height: 16* SizeConfig.heightMultiplier,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
+                          itemCount: imgList.length,
                           itemBuilder: (context, i){
                           return  Padding(
                             padding: const EdgeInsets.only(right: 10),

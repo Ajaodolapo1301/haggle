@@ -17,6 +17,7 @@ import 'package:hive/hive.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../GraphQlConfig.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -181,7 +182,7 @@ class _LoginState extends State<Login> {
       box.put('user', user);
 
       user.emailVerified
-          ? pushToAndClearStack(context, Homepage())
+          ? pushToAndClearStack(context, DashboardPage())
           : pushTo(context, Verification());
     }
   }
