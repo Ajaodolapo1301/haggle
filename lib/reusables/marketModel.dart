@@ -68,7 +68,13 @@ class MarketWidget extends StatelessWidget {
                   // Text("${marketModel.currency}${marketModel.amount}",style: TextStyle(fontSize: 9, ),)
                 ],
               ),
-
+              Spacer(),
+              Column(
+                children: [
+                  SizedBox(height: 10,),
+                  Image.asset(marketModel.chartImage, height: 22,),
+                ],
+              )
             ],
           ),
         ),

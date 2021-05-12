@@ -10,6 +10,7 @@ import 'package:haggle/model/marketModel.dart';
 import 'package:haggle/model/user.dart';
 import 'package:haggle/reusables/DoMoreWidget.dart';
 import 'package:haggle/reusables/marketModel.dart';
+import 'package:haggle/reusables/trendingWidget.dart';
 import 'package:haggle/utils/sizeConfig/dev_utils.dart';
 import 'package:haggle/utils/sizeConfig/navigation/navigator.dart';
 import 'package:haggle/utils/sizeConfig/sizeConfig.dart';
@@ -49,8 +50,8 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
       name:"Haggle (HAG)",
       currency: "NGN",
       amount:" 30,000",
-
       image: "assets/images/flash.png",
+      chartImage: "assets/images/haggleChart.png"
 
     ),
     MarketModel(
@@ -59,6 +60,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         amount:" 30,000",
         image: "assets/images/BTC.png",
       percentage: "+2.5% ",
+        chartImage: "assets/images/bitChart.png"
     ),
     MarketModel(
         name:"Ethereum (ETH)",
@@ -67,6 +69,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         color: Colors.black,
         image: "assets/images/ethereum.png",
       percentage: "+2.5% ",
+        chartImage: "assets/images/etiChart.png"
     ),
     MarketModel(
         name:"Tether (USDT)",
@@ -75,6 +78,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         editSize: true,
         color: Colors.green,
         image: "assets/images/usdt.png",
+      chartImage: "assets/images/teChart.png",
 
       percentage: "+2.5% ",
     ),
@@ -83,6 +87,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         currency: "NGN",
         amount:" 30,000",
         image: "assets/images/greenBitcoin.png",
+      chartImage: "assets/images/bit2Chart.png",
       percentage: "+2.5% ",
     ),
     MarketModel(
@@ -92,6 +97,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         image: "assets/images/dodge.png",
         scaledown: true,
         percentage: "+2.5% ",
+  chartImage: "assets/images/dogChart.png",
         color: Color(0xffe1b302)
     ),
     MarketModel(
@@ -101,6 +107,7 @@ class _HomepageState extends State<Homepage>  with TickerProviderStateMixin{
         image: "assets/images/lite.png",
       scaledown: true,
       color: Colors.blue,
+      chartImage: "assets/images/lChart.png",
 
       percentage: "+2.5% ",
     ),
@@ -140,10 +147,7 @@ String amount = "0.00";
   Widget build(BuildContext context) {
 
     return Scaffold(
-// backgroundColor: kPrimaryColor,
-
       body: SafeArea(
-        // bottom: false,
         child: SingleChildScrollView(
           physics : ClampingScrollPhysics(),
           child: Container(
@@ -159,7 +163,6 @@ String amount = "0.00";
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // SizedBox(height:1.2 * SizeConfig.heightMultiplier,),
 
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -361,7 +364,7 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Markets", style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                            Text("Markets", style: TextStyle(fontSize: 1.7 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
                         SizedBox(height: 10,),
                             Column(
                               children: marketModelList.map((e) {
@@ -382,7 +385,7 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Do more with HaggleX",  style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                            Text("Do more with HaggleX",  style: TextStyle(fontSize: 1.7 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
                             SizedBox(height: 10,),
                             Column(
                               children: doMoreList.map((e) {
@@ -402,7 +405,7 @@ String amount = "0.00";
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Trending crypto news",  style: TextStyle(fontSize: 1.8 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
+                            Text("Trending crypto news",  style: TextStyle(fontSize: 1.7 * SizeConfig.textMultiplier, fontWeight: FontWeight.bold),),
                             SizedBox(height: 21,),
                             Column(
                               children: ["1", "2"].map((e) {
@@ -434,76 +437,7 @@ String amount = "0.00";
 
 
 
-class TrendingNewsWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 5 * SizeConfig.heightMultiplier,
 
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  "assets/images/bit.png",
-                ),
-              ),
-              SizedBox(width: 5.0 * SizeConfig.widthMultiplier,),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-
-                        child: Text("Blockchain Bites: BTC on Ethereum, DeFi’s latest stablecoin, the currency cold wars", textAlign: TextAlign.start, style: TextStyle(fontSize: 1.4 * SizeConfig.textMultiplier, fontWeight: FontWeight.w500),)),
-
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.7,
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children:[
-                          Text("6hrs ago",  style: TextStyle(fontSize: 1.1 * SizeConfig.textMultiplier),),
-                        SizedBox(width: 5.3 * SizeConfig.widthMultiplier,),
-
-                          RichText(
-                            text: TextSpan(
-                              text: "Category:",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize:  1.1 * SizeConfig.textMultiplier,
-
-                              ),
-                              children: [
-                                TextSpan(
-                                    text:" DeFi",
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize:  1.1 * SizeConfig.textMultiplier)
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-
-
-
-            ],
-          ),
-
-        ),
-        SizedBox(height: 4.4 * SizeConfig.heightMultiplier,)
-
-      ],
-    );
-  }
-}
 
 
 

@@ -8,7 +8,8 @@ class MarketModel{
   var image;
 bool scaledown ;
   Color color;
+ String chartImage;
   String percentage;
   MarketModel({this.amount, this.currency, this.image, this.name,  this.color = Colors.transparent,
-    this.editSize = false, this.scaledown = false, this.percentage });
+    this.editSize = false, this.scaledown = false, this.percentage, this.chartImage });
 }
